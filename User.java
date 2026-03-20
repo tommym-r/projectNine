@@ -8,9 +8,10 @@ public abstract class User implements HasMenu, Serializable{
   public boolean login(){
     boolean success = false;
     Scanner input = new Scanner(System.in);
-    System.out.println("User name: ");
+    System.out.print("User name: ");
     String userName = input.nextLine();
-    System.out.println("PIN: ");
+    System.out.println();
+    System.out.print("PIN: ");
     String PIN = input.nextLine();
     if (userName.equals(this.userName)){
       if (PIN.equals(this.PIN)){

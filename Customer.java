@@ -33,25 +33,28 @@ public class Customer extends User {
   public void start(){
     boolean keepGoing = true;
     String response;
-    boolean login = true;
-    while (keepGoing){
-      login = login();
-      if (login == true){
-        System.out.println("Login Successful");
-        response = menu();
-        if (response.equals("0")){
-          keepGoing = false;
-        } else if (response.equals("1")){
-          checking.start();
-        } else if (response.equals("2")){
-          savings.start();
-        } else if (response.equals("3")){
-          this.changePIN();
-        } else {
-          System.out.println("Please enter 0, 1, 2, or 3");
-        } // end if
-      } else {
+    boolean loggedIn = false;
+    while (loggedIn == false){
+      loggedIn = login();
+      if (loggedIn == false){
         System.out.println("Incorrect username or password, try again");
+      } // end if
+    } // end while
+    System.out.println("Login Successful");
+
+    while (keepGoing){
+      response = menu();
+      if (response.equals("0")){
+        keepGoing = false;
+      } else if (response.equals("1")){
+        checking.start();
+      } else if (response.equals("2")){
+        savings.start();
+      } else if (response.equals("3")){
+        this.changePIN();
+      } else {
+        System.out.println("Please enter 0, 1, 2, or 3");
+      } // end if
     } // end while
   } // end start
 
@@ -64,15 +67,15 @@ public class Customer extends User {
     while (keepGoing){
       System.out.println("Enter your current PIN: ");
       response = input.nextLine();
-      if (response.equals(this.PIN)){
+      if (response.equals(this.getPIN())){
         System.out.println();
         System.out.println("Enter your new PIN: ");
-        tempPIN = input.nextLine;
+        tempPIN = input.nextLine();
         System.out.println();
         System.out.println("Re-enter your new PIN: ");
         response = input.nextLine();
         if (response.equals(tempPIN)){
-          this.PIN = tempPIN;
+          this.setPIN(tempPIN);
           System.out.println("PIN changed successfully");
           keepGoing = false;
         } else {
@@ -86,9 +89,10 @@ public class Customer extends User {
   
 
   public String getReport(){
-    System.out.println("User Report: ");
-    System.out.println("Checking balance: " + checking.getBalanceString());
-    System.out.println("Savings balance: " + savings.getBalanceString());
+    String report = "User Report:\n" +
+                    "Checking balance: " + checking.getBalanceString() + "\n" +
+                    "Savings balance: " + savings.getBalanceString();
+    return report;
   } // end getReport
 
 } // end Customer
