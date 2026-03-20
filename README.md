@@ -18,6 +18,7 @@ classDiagram
         +start() String
         +getBalance() double
         +getBalanceString() String
+        +checkBalance() void
         +setBalance(balance) void
         -getDouble() double
         +makeDeposit() void
