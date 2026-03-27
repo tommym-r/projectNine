@@ -10,6 +10,7 @@ classDiagram
     }
 
     class CheckingAccount {
+        <<ser>>
         -balance double
         +CheckingAccount()
         +CheckingAccount(balance)
@@ -18,8 +19,8 @@ classDiagram
         +start() String
         +getBalance() double
         +getBalanceString() String
-        +checkBalance() void
         +setBalance(balance) void
+        +checkBalance() void
         -getDouble() double
         +makeDeposit() void
         +makeWithdrawal() void
@@ -43,10 +44,11 @@ classDiagram
         +getUserName() String
         +setPIN(PIN) void
         +getPIN() String
-        +getReport() (abstract) String
+        +getReport()* String
     }
 
     class Customer {
+        <<ser>>
         -checking CheckingAccount
         -savings SavingsAccount
         +main() void
@@ -57,8 +59,34 @@ classDiagram
         +getReport() String
     }
 
+    class Admin {
+        +Admin()
+        +menu() String
+        +getReport() String
+    }
+
+    class Bank {
+        -admin Admin
+        -customers ArrayList
+        +Bank()
+        +main() void
+        +loadSampleCustomers() void
+        +loadCustomers() void
+        +saveCustomers() void
+        +fullCustomerReport() void
+        +addUser() void
+        +applyInterest() void
+        +loginAsCustomer() void
+        +menu() void
+        +start() void
+        +startAdmin() void
+    }
+
     SavingsAccount --|> CheckingAccount : Extends
     CheckingAccount ..|> HasMenu : Implements
     User ..|> HasMenu : Implements
     Customer --|> User : Extends
+    Admin --|> User : Extends
+    Bank "1" o-- "1" Admin
+    Bank "1" o-- "*" Customer
 ```
