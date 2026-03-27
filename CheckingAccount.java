@@ -25,7 +25,7 @@ public class CheckingAccount implements HasMenu, Serializable{
     System.out.println("2) make deposit");
     System.out.println("3) make a withdrawal");
     System.out.println();
-    System.out.println("please enter 0-3: ");
+    System.out.print("please enter 0-3: ");
     String response = input.nextLine();
     return response;
   } // end menu
@@ -88,14 +88,14 @@ public class CheckingAccount implements HasMenu, Serializable{
   } // end getDouble
 
   public void makeDeposit(){
-    System.out.println("How much to deposit? ");
+    System.out.print("How much to deposit: ");
     double deposit = this.getDouble();
     this.balance += deposit;
     System.out.println("New balance: " + this.getBalanceString());
   } // end makeDeposit
 
   public void makeWithdrawal(){
-    System.out.println("How much to withdrawal? ");
+    System.out.print("How much to withdrawal: ");
     double withdrawal = this.getDouble();
     if (withdrawal > this.balance){
       System.out.println("Insufficient funds");

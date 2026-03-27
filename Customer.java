@@ -32,14 +32,17 @@ public class Customer extends User {
     System.out.println("2) Manage Savings Account");
     System.out.println("3) Change PIN");
     System.out.println();
-    System.out.println("Please enter 0-3");
+    System.out.print("Please enter 0-3: ");
     String response = input.nextLine();
     return response;
   } // end menu
 
   public void start(){
+    
     boolean keepGoing = true;
     String response;
+    
+    /*
     boolean loggedIn = false;
     while (loggedIn == false){
       loggedIn = login();
@@ -48,6 +51,9 @@ public class Customer extends User {
       } // end if
     } // end while
     System.out.println("Login Successful");
+    
+    Redundant now that loginAsCustomer exists in Bank.java
+    */  
 
     while (keepGoing){
       response = menu();
@@ -72,14 +78,14 @@ public class Customer extends User {
     String tempPIN;
     
     while (keepGoing){
-      System.out.println("Enter your current PIN: ");
+      System.out.print("Enter your current PIN: ");
       response = input.nextLine();
       if (response.equals(this.getPIN())){
         System.out.println();
-        System.out.println("Enter your new PIN: ");
+        System.out.print("Enter your new PIN: ");
         tempPIN = input.nextLine();
         System.out.println();
-        System.out.println("Re-enter your new PIN: ");
+        System.out.print("Re-enter your new PIN: ");
         response = input.nextLine();
         if (response.equals(tempPIN)){
           this.setPIN(tempPIN);

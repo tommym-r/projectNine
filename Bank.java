@@ -10,8 +10,11 @@ public class Bank implements HasMenu {
   } // end main
 
   public Bank() {
-    this.loadSampleCustomers();
+    //this.loadSampleCustomers();
+    //this.saveCustomers();
+    this.loadCustomers();
     this.start();
+    this.saveCustomers();
   } // end constuctor
 
   public String menu(){
@@ -23,7 +26,7 @@ public class Bank implements HasMenu {
     System.out.println("1) Login as admin");
     System.out.println("2) Login as customer");
     System.out.println();
-    System.out.println("Action: ");
+    System.out.print("Action: ");
     String response = input.nextLine();
     return response;
   } // end menu
@@ -35,12 +38,16 @@ public class Bank implements HasMenu {
       if (response.equals("0")){
         keepGoing = false;
       } else if (response.equals("1")){
+        System.out.println();
         System.out.println("Admin login");
+        System.out.println();
         if (this.admin.login()){
           startAdmin();
         } // end if
       } else if (response.equals("2")){
+        System.out.println();
         System.out.println("Customer login");
+        System.out.println();
         this.loginAsCustomer();
       } else {
         System.out.println("Please enter 0, 1, or 2");
@@ -58,7 +65,7 @@ public class Bank implements HasMenu {
         System.out.println("Full Customer Report");
         this.reportAllCustomers();
       } else if (response.equals("2")){
-        System.out.println("Add new user");
+        System.out.println("Add new customer");
         this.addUser();
       } else if (response.equals("3")){
         System.out.println("Apply interest to savings");
@@ -85,9 +92,9 @@ public class Bank implements HasMenu {
 
   public void addUser(){
     Scanner input = new Scanner(System.in);
-    System.out.println("User name: ");
+    System.out.print("User name: ");
     String userName = input.nextLine();
-    System.out.println("PIN: ");
+    System.out.print("PIN: ");
     String PIN = input.nextLine();
     customers.add(new Customer(userName, PIN));
   } // end addUser
@@ -100,9 +107,9 @@ public class Bank implements HasMenu {
 
   public void loginAsCustomer(){
     Scanner input = new Scanner(System.in);
-    System.out.println("User name: ");
+    System.out.print("User name: ");
     String userNameIn = input.nextLine();
-    System.out.println("PIN: ");
+    System.out.print("PIN: ");
     String PINin = input.nextLine();
 
     Customer currentCustomer = null;
@@ -113,12 +120,39 @@ public class Bank implements HasMenu {
     } // end for
 
     if (currentCustomer == null){
-      System.out.println("Customer not found");
-    } else { 
+      System.out.println("Incorrect username or password");
+    } else {
+      System.out.println();
+      System.out.println("Login Successful"); 
+      // System.out.println();
       currentCustomer.start();
     } // end if
   } // end loginAsCustomer
 
+  public void saveCustomers(){
+    try {
+      FileOutputStream fo = new FileOutputStream("customers.dat");
+      ObjectOutputStream obOut = new ObjectOutputStream(fo);
+      obOut.writeObject(customers);
+      obOut.close();
+      fo.close();
+    } catch (Exception e){
+      System.out.println(e.getMessage());
+    } // end try
+  } // end saveCustomers
+
+
+  public void loadCustomers(){
+    try {
+      FileInputStream fi = new FileInputStream("customers.dat");
+      ObjectInputStream obIn = new ObjectInputStream(fi);
+      customers = (CustomerList)(obIn.readObject());
+      obIn.close();
+      fi.close();
+    } catch (Exception e){
+      System.out.println(e.getMessage());
+    } // end try
+  } // end loadCustomers
 
 } // end bank
 

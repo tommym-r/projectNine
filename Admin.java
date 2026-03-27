@@ -22,7 +22,7 @@ public class Admin extends User {
     System.out.println("2) Add user");
     System.out.println("3) Apply interest to savings accounts");
     System.out.println();
-    System.out.println("Action: ");
+    System.out.print("Action: ");
     String response = input.nextLine();
     return response;
   } // end menu
