@@ -17,6 +17,13 @@ public class Customer extends User {
     savings = new SavingsAccount();
   } // end constructor
 
+  public Customer(String userName, String PIN){
+    setUserName(userName);
+    setPIN(PIN);
+    checking = new CheckingAccount();
+    savings = new SavingsAccount();
+  } // end constructor
+
   public String menu(){
     Scanner input = new Scanner(System.in);
     System.out.println();
@@ -89,10 +96,15 @@ public class Customer extends User {
   
 
   public String getReport(){
-    String report = "User Report:\n" +
+    String report = "User Report: " + this.getUserName() + "\n" +
                     "Checking balance: " + checking.getBalanceString() + "\n" +
                     "Savings balance: " + savings.getBalanceString();
     return report;
   } // end getReport
+
+  public SavingsAccount getSavings() {
+    return savings;
+  } // end getSavings
+
 
 } // end Customer

@@ -10,7 +10,6 @@ public abstract class User implements HasMenu, Serializable{
     Scanner input = new Scanner(System.in);
     System.out.print("User name: ");
     String userName = input.nextLine();
-    System.out.println();
     System.out.print("PIN: ");
     String PIN = input.nextLine();
     if (userName.equals(this.userName)){
@@ -18,6 +17,7 @@ public abstract class User implements HasMenu, Serializable{
         success = true;
       } // end if
     } // end if
+    // System.out.println("Login Succesful");
     return success;
   } // end login
   
